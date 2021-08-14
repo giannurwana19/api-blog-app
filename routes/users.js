@@ -53,6 +53,18 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const { password, ...data } = user._doc;
+
+    res.status(200).json({ data });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'User not Found' });
+  }
+});
+
 module.exports = router;
 
 // DOCS
