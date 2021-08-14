@@ -17,9 +17,9 @@ router.post('/register', async (req, res) => {
 
     const user = await newUser.save();
 
-    res.status(200).json(user);
+    res.status(200).json({ message: 'User has been registered!', data: user });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: err });
   }
 });
 
@@ -33,13 +33,12 @@ router.post('/login', async (req, res) => {
     const validate = await bcrypt.compare(req.body.password, user.password);
 
     !validate && res.status(400).json('Wrong credentials password!');
-    console.log('sampe 2');
 
     const { password, ...UserData } = user._doc;
 
-    res.status(200).json(UserData);
+    res.status(200).json({ message: 'User has been login', data: UserData });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ message: err });
   }
 });
 
