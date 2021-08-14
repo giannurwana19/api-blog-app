@@ -2,12 +2,17 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const multer = require('multer');
+const fs = require('fs');
 
 const app = express();
 const port = 4000;
 
 dotenv.config();
 app.use(express.json());
+
+if (!fs.existsSync('./images')) {
+  fs.mkdirSync('./images');
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
